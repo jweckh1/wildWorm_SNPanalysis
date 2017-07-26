@@ -4,7 +4,7 @@
 library("readr")
 
 #Temporarily commented out for faster coding
-#all_mmp_SNPs <- read_delim("~/Documents/R_Projects/WildWorm_SelectivityControl/mmp_wild_isolate_data_Mar13.csv", "\t", escape_double = FALSE, trim_ws = TRUE)
+all_mmp_SNPs <- read_delim("~/Documents/R_Projects/wildElegans_MMP_snpAnalysis/mmp_wild_isolate_data_Mar13.csv", "\t", escape_double = FALSE, trim_ws = TRUE)
 
 #Creates a column containing gene name and allele
 all_mmp_SNPs$gene_allele <- paste(all_mmp_SNPs$CGC, all_mmp_SNPs$allele, collapse = "_")
