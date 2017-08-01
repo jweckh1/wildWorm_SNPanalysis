@@ -17,6 +17,7 @@ pheno1_ctrlDif_geneList<-unique(pheno1_candidateDifferences$CGC)
 pheno1_candidateBinary_CGC<-dcast(subset(all_mmp_SNPs_effect_coding, all_mmp_SNPs_effect_coding$CGC %in% pheno1_ctrlDif_geneList), strain~CGC, fun.aggregate = function(x){as.integer(length(x)>0)})
 strainNames<-pheno1_candidateBinary_CGC$strain
 addToLegend<-subset(strainGroupings, strainGroupings$strain %in% strainNames)
+addToLegend<-addToLegend[match(strainNames, addToLegend$strain),]
 
 #Change row ID from arbitrary number to strain name
 rownames(pheno1_candidateBinary_CGC) <- pheno1_candidateBinary_CGC[,1]
@@ -24,5 +25,5 @@ pheno1_candidateBinary_CGC[,1]<-NULL
 
 pheno1_candidateBinary_CGC<-data.frame(lapply(pheno1_candidateBinary_CGC, function(x) as.numeric(as.character(x))))
 
-heatmap.2(as.matrix(pheno1_candidateBinary_CGC), symm = FALSE, trace = "none", labCol = FALSE, labRow = addToLegend$strain, main = "Genes in JU1088 (control lost) absent in relatives CB4854 and ED3042", col = brewer.pal(3, "Blues"), RowSideColors = as.character(as.numeric(addToLegend$group)))
+heatmap.2(as.matrix(pheno1_candidateBinary_CGC), symm = FALSE, trace = "none", labCol = FALSE, labRow = strainNames, main = "Clustering by gene variants in JU1088 (control lost) \n absent in relatives CB4854 and ED3042", col = brewer.pal(3, "Blues"), RowSideColors = brewer.pal(9, "Spectral")[factor(addToLegend$group)])
 legend(legendCoords, xpd = TRUE, legend = unique(strainGroupings$group), col = unique(as.numeric(strainGroupings$group)), lty = 1, lwd = 5, cex = .7)
